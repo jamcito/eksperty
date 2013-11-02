@@ -51,7 +51,7 @@ nieistotne(opieka_medyczna) :-
     negatywne(czy, masz_dzieci).
  
 nieistotne(edukacja) :-
-    negatywne(czy, masz_dzieci);
+    negatywne(czy, masz_dzieci),
     pozytywne(czy, skonczyles_edukacje).
 
 pozytywne(X, Y) :-
