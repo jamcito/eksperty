@@ -5,28 +5,40 @@
 sugerowane_miejsce(krakow) :-
     negatywne(lubisz, przebywac_na_swiezym_powietrzu),
     negatywne(lubisz, gory),
-    negatywne(chcesz_mieszkac, zagranica).
+    negatywne(chcesz_mieszkac, zagranica),
+    pozytywne(chcesz_mieszkac, miasto),
+    atrakcyjne(spolecznie),
+    atrakcyjne(kultura).
 
 sugerowane_miejsce(bieszczady) :-
     pozytywne(lubisz, przebywac_na_swiezym_powietrzu),
     pozytywne(lubisz, gory),
     nieistotne(komunikacja),
     nieistotne(edukacja),
-    nieistotne(opieka_medyczna).
+    nieistotne(opieka_medyczna),
+    pozytywne(chcesz_mieszkac, wies),
+    atrakcyjne(spokoj).
 
 sugerowane_miejsce(londyn) :-
     negatywne(lubisz, przebywac_na_swiezym_powietrzu),
     nieistotne(opieka_medyczna),
-    pozytywne(chcesz_mieszkac, zagranica).
+    pozytywne(chcesz_mieszkac, zagranica),
+    pozytywne(chcesz_mieszkac, metropolia),
+    atrakcyjne(spolecznie),
+    atrakcyjne(kultura).
 
 sugerowane_miejsce(mazury) :-
     pozytywne(lubisz, przebywac_na_swiezym_powietrzu),
+    pozytywne(lubisz, jeziora),
     pozytywne(lubisz, zeglowac),
     nieistotne(komunikacja),
-    nieistotne(opieka_medyczna).
+    nieistotne(opieka_medyczna),
+    pozytywne(chcesz_mieszkac, wies),
+    atrakcyjne(spokoj).
 
 sugerowane_miejsce(wyspy_karaibskie) :-
     pozytywne(lubisz, przebywac_na_swiezym_powietrzu),
+    pozytywne(lubisz, morze),
     pozytywne(lubisz, zeglowac),
     nieistotne(opieka_medyczna),
     nieistotne(edukacja),
@@ -40,7 +52,16 @@ sugerowane_miejsce(zakopane) :-
 sugerowane_miejsce(innsbruck) :-
     pozytywne(lubisz, przebywac_na_swiezym_powietrzu),
     pozytywne(lubisz, gory),
-    pozytywne(chcesz_mieszkac, zagranica).    
+    pozytywne(chcesz_mieszkac, zagranica),
+    pozytywne(chcesz_mieszkac, miasto),
+    atrakcyjne(spolecznie),
+    atrakcyjne(kultura).    
+
+sugerowane_miejsce(lodz) :-
+    pozytywne(chcesz_mieszkac, miasto),
+    atrakcyjne(spolecznie).
+
+%
 
 nieistotne(komunikacja) :-
     (pozytywne(czy, masz_auto));
@@ -54,19 +75,98 @@ nieistotne(edukacja) :-
     negatywne(czy, masz_dzieci),
     pozytywne(czy, skonczyles_edukacje).
 
+atrakcyjne(spolecznie) :-
+    (pozytywne(chcesz_mieszkac, metropolia);
+    pozytywne(chcesz_mieszkac, miasto)),
+    negatywne(chcesz_mieszkac, wies),
+    pozytywne(lubisz, koncerty).
+
+atrakcyjne(spokoj) :-
+    pozytywne(lubisz, wies),
+    negatywne(tolerujesz, halas).
+
+atrakcyjne(kultura) :-
+    (pozytywne(lubisz, koncerty);
+    pozytywne(lubisz, zabytki)),
+    negatywne(chcesz_mieszkac, wies).
+
+%
+
 pozytywne(X, Y) :-
     xpozytywne(X, Y), !.
 
 pozytywne(X, Y) :-
     not(xnegatywne(X, Y)),
+    LOKALIZACJA = [gory, morze, jeziora],
+    member(Y, LOKALIZACJA),
+    pytaj_wiele(X, Y, LOKALIZACJA, tak).
+
+pozytywne(X, Y) :-
+    not(xnegatywne(X, Y)),
+    ROZMIAR = [metropolia, miasto, wies],
+    member(Y, ROZMIAR),
+    pytaj_wiele(X, Y, ROZMIAR, tak).
+
+pozytywne(X, Y) :-
+    not(xnegatywne(X, Y)),
     pytaj(X, Y, tak).
+
+%
 
 negatywne(X, Y) :-
     xnegatywne(X, Y), !.
 
 negatywne(X, Y) :-
     not(xpozytywne(X, Y)),
+    LOKALIZACJA = [gory, morze, jeziora],
+    member(Y, LOKALIZACJA),
+    pytaj_wiele(X, Y, LOKALIZACJA, nie).
+
+negatywne(X, Y) :-
+    not(xpozytywne(X, Y)),
+    ROZMIAR = [metropolia, miasto, wies],
+    member(Y, ROZMIAR),
+    pytaj_wiele(X, Y, ROZMIAR, nie).
+
+negatywne(X, Y) :-
+    not(xpozytywne(X, Y)),
     pytaj(X, Y, nie).
+
+%
+
+pytaj_wiele(X, Y, L, tak) :-
+    !, write('Ktore z podanych '), write(L), write(' '), write(X), write(' ? (odp1_odp2_..._odpN/zadne) \n'),
+    readln([Replay]),
+    odpowiedz_wiele(Replay, X, Y, L, tak).
+
+pytaj_wiele(X, Y, L, nie) :-
+    !, write('Ktore z podanych '), write(L), write(' '), write(X), write(' ? (odp1_odp2_..._odpN/zadne) \n'),
+    readln([Replay]),
+    odpowiedz_wiele(Replay, X, Y, L, nie).
+
+odpowiedz_wiele(Replay, X, Y, L, nie) :-
+    sub_string(Replay, 0, _, _, 'zadne'),
+    pamietaj('', X, Y, L).
+
+odpowiedz_wiele(Replay, X, Y, L, nie) :-
+    pamietaj(Replay, X, Y, L).
+
+odpowiedz_wiele(Replay, X, Y, L, tak) :-
+    pamietaj(Replay, X, Y, L),
+    sub_string(Replay, 0, _, _, Y).
+
+pamietaj(Replay, X, Y, [H|T]) :-
+    sub_string(Replay, _, _, _, H),
+    assertz(xpozytywne(X, H)),
+    pamietaj(Replay, X, Y, T).
+
+pamietaj(Replay, X, Y, [H|T]) :-
+    assertz(xnegatywne(X, H)),
+    pamietaj(Replay, X, Y, T).
+
+pamietaj(_, _, _, []).
+
+%
 
 pytaj(X, Y, tak) :-
     !, write(X) , write(' '),  write(Y), write(' ? (t/n)\n'),
