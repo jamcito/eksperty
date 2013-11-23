@@ -4,7 +4,6 @@
 
 sugerowane_miejsce(krakow) :-
     negatywne(lubisz, przebywac_na_swiezym_powietrzu),
-    negatywne(lubisz, gory),
     negatywne(chcesz_mieszkac, zagranica),
     pozytywne(chcesz_mieszkac, miasto),
     atrakcyjne(spolecznie),
@@ -25,28 +24,29 @@ sugerowane_miejsce(londyn) :-
     pozytywne(chcesz_mieszkac, zagranica),
     pozytywne(chcesz_mieszkac, metropolia),
     atrakcyjne(spolecznie),
-    atrakcyjne(kultura).
+    atrakcyjne(kultura),
+    pozytywne(znasz, angielski).
 
 sugerowane_miejsce(mazury) :-
-    pozytywne(lubisz, przebywac_na_swiezym_powietrzu),
-    pozytywne(lubisz, jeziora),
-    pozytywne(lubisz, zeglowac),
+    atrakcyjne(akwen_wodny),
     nieistotne(komunikacja),
     nieistotne(opieka_medyczna),
     pozytywne(chcesz_mieszkac, wies),
-    atrakcyjne(spokoj).
-
+    atrakcyjne(wypoczynek_na_swiezym_powietrzu).
+    
 sugerowane_miejsce(wyspy_karaibskie) :-
-    pozytywne(lubisz, przebywac_na_swiezym_powietrzu),
-    pozytywne(lubisz, morze),
-    pozytywne(lubisz, zeglowac),
+    atrakcyjne(akwen_wodny),
     nieistotne(opieka_medyczna),
     nieistotne(edukacja),
-    pozytywne(chcesz_mieszkac, zagranica).
+    pozytywne(chcesz_mieszkac, zagranica),
+    atrakcyjne(wypoczynek_na_swiezym_powietrzu),
+    (pozytywne(znasz, hiszpanski);
+    pozytywne(znasz, angielski)).
  
 sugerowane_miejsce(zakopane) :-
     negatywne(lubisz, przebywac_na_swiezym_powietrzu),
-    pozytywne(lubisz, gory),
+    (pozytywne(lubisz, gory);
+    pozytywne(lubisz, sporty_zimowe)),
     nieistotne(komunikacja).
 
 sugerowane_miejsce(innsbruck) :-
@@ -54,13 +54,24 @@ sugerowane_miejsce(innsbruck) :-
     pozytywne(lubisz, gory),
     pozytywne(chcesz_mieszkac, zagranica),
     pozytywne(chcesz_mieszkac, miasto),
-    atrakcyjne(spolecznie),
-    atrakcyjne(kultura).    
+    (atrakcyjne(spolecznie);
+    atrakcyjne(kultura);
+    pozytywne(lubisz, sporty_zimowe)),
+    (pozytywne(znasz, niemiecki);
+    pozytywne(znasz, angielski)).
 
 sugerowane_miejsce(lodz) :-
     pozytywne(chcesz_mieszkac, miasto),
     atrakcyjne(spolecznie).
 
+sugerowane_miejsce(norwegia) :-
+    pozytywne(lubisz, gory),
+    pozytywne(chcesz_mieszkac, zagranica),
+    pozytywne(chcesz_mieszkac, wies),
+    atrakcyjne(wypoczynek_na_swiezym_powietrzu),
+    (pozytywne(znasz, norweski);
+    pozytywne(znasz, angielski)).
+    
 %
 
 nieistotne(komunikacja) :-
@@ -82,7 +93,7 @@ atrakcyjne(spolecznie) :-
     pozytywne(lubisz, koncerty).
 
 atrakcyjne(spokoj) :-
-    pozytywne(lubisz, wies),
+    pozytywne(chcesz_mieszkac, wies),
     negatywne(tolerujesz, halas).
 
 atrakcyjne(kultura) :-
@@ -90,6 +101,13 @@ atrakcyjne(kultura) :-
     pozytywne(lubisz, zabytki)),
     negatywne(chcesz_mieszkac, wies).
 
+atrakcyjne(wypoczynek_na_swiezym_powietrzu) :-
+    pozytywne(lubisz, przebywac_na_swiezym_powietrzu),
+    atrakcyjne(spokoj);
+ 
+atrakcyjne(akwen_wodny) :-
+    (pozytywne(lubisz, przebywac_nad_woda);
+    pozytywne(lubisz, zeglowac)).
 %
 
 pozytywne(X, Y) :-
