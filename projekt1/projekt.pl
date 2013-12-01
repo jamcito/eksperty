@@ -25,7 +25,8 @@ sugerowane_miejsce(londyn) :-
     pozytywne(chcesz_mieszkac, metropolia),
     atrakcyjne(spolecznie),
     atrakcyjne(kultura),
-    pozytywne(znasz, angielski).
+    pozytywne(znasz, angielski),
+    pozytywne(tolerujesz, czeste_opady).
 
 sugerowane_miejsce(mazury) :-
     atrakcyjne(akwen_wodny),
@@ -36,6 +37,7 @@ sugerowane_miejsce(mazury) :-
     
 sugerowane_miejsce(wyspy_karaibskie) :-
     atrakcyjne(akwen_wodny),
+    atrakcyjne(klimat),
     nieistotne(opieka_medyczna),
     nieistotne(edukacja),
     pozytywne(chcesz_mieszkac, zagranica),
@@ -60,10 +62,6 @@ sugerowane_miejsce(innsbruck) :-
     (pozytywne(znasz, niemiecki);
     pozytywne(znasz, angielski)).
 
-sugerowane_miejsce(lodz) :-
-    pozytywne(chcesz_mieszkac, miasto),
-    atrakcyjne(spolecznie).
-
 sugerowane_miejsce(norwegia) :-
     pozytywne(lubisz, gory),
     pozytywne(chcesz_mieszkac, zagranica),
@@ -71,7 +69,21 @@ sugerowane_miejsce(norwegia) :-
     atrakcyjne(wypoczynek_na_swiezym_powietrzu),
     (pozytywne(znasz, norweski);
     pozytywne(znasz, angielski)).
-    
+ 
+sugerowane_miejsce(madryt) :-
+    pozytywne(chcesz_mieszkac, zagranica),
+    (pozytywne(chcesz_mieszkac, metropolia);
+        pozytywne(chcesz_mieszkac, miasto)),
+    atrakcyjne(spolecznie),
+    atrakcyjne(kultura),
+    atrakcyjne(klimat),
+    pozytywne(znasz, hiszpanski).
+
+sugerowane_miejsce(warszawa) :-
+    (pozytywne(chcesz_mieszkac, metropolia); 
+        pozytywne(chcesz_mieszkac, miasto)),
+    atrakcyjne(spolecznie).
+
 %
 
 nieistotne(komunikacja) :-
@@ -87,9 +99,9 @@ nieistotne(edukacja) :-
     pozytywne(czy, skonczyles_edukacje).
 
 atrakcyjne(spolecznie) :-
-    (pozytywne(chcesz_mieszkac, metropolia);
+    ((pozytywne(chcesz_mieszkac, metropolia);
     pozytywne(chcesz_mieszkac, miasto)),
-    negatywne(chcesz_mieszkac, wies),
+    negatywne(chcesz_mieszkac, wies));
     pozytywne(lubisz, koncerty).
 
 atrakcyjne(spokoj) :-
@@ -103,15 +115,27 @@ atrakcyjne(kultura) :-
 
 atrakcyjne(wypoczynek_na_swiezym_powietrzu) :-
     pozytywne(lubisz, przebywac_na_swiezym_powietrzu),
-    atrakcyjne(spokoj);
+    atrakcyjne(spokoj).
  
 atrakcyjne(akwen_wodny) :-
     (pozytywne(lubisz, przebywac_nad_woda);
     pozytywne(lubisz, zeglowac)).
+
+atrakcyjne(klimat) :-
+    pozytywne(lubisz, cieply_klimat) ;
+    negatywne(tolerujesz, czeste_opady).
+
+
 %
 
 pozytywne(X, Y) :-
     xpozytywne(X, Y), !.
+
+pozytywne(X, Y) :-
+    not(xnegatywne(X, Y)),
+    JEZYK = [niemiecki, angielski, norweski, hiszpanski],
+    member(Y, JEZYK),
+    pytaj_wiele(X, Y, JEZYK, tak).
 
 pozytywne(X, Y) :-
     not(xnegatywne(X, Y)),
@@ -133,6 +157,12 @@ pozytywne(X, Y) :-
 
 negatywne(X, Y) :-
     xnegatywne(X, Y), !.
+
+negatywne(X, Y) :-
+    not(xpozytywne(X, Y)),
+    JEZYK = [niemiecki, angielski, norweski, hiszpanski],
+    member(Y, JEZYK),
+    pytaj_wiele(X, Y, JEZYK, nie).
 
 negatywne(X, Y) :-
     not(xpozytywne(X, Y)),
