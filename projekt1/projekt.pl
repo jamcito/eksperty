@@ -6,8 +6,7 @@ sugerowane_miejsce(krakow) :-
     negatywne(lubisz, przebywac_na_swiezym_powietrzu),
     negatywne(chcesz_mieszkac, zagranica),
     pozytywne(chcesz_mieszkac, miasto),
-    atrakcyjne(spolecznie),
-    atrakcyjne(kultura).
+    atrakcyjne(humanistycznie).
 
 sugerowane_miejsce(bieszczady) :-
     pozytywne(lubisz, przebywac_na_swiezym_powietrzu),
@@ -19,12 +18,11 @@ sugerowane_miejsce(bieszczady) :-
     atrakcyjne(spokoj).
 
 sugerowane_miejsce(londyn) :-
+    atrakcyjne(humanistycznie),
     negatywne(lubisz, przebywac_na_swiezym_powietrzu),
     nieistotne(opieka_medyczna),
     pozytywne(chcesz_mieszkac, zagranica),
     pozytywne(chcesz_mieszkac, metropolia),
-    atrakcyjne(spolecznie),
-    atrakcyjne(kultura),
     pozytywne(znasz, angielski),
     pozytywne(tolerujesz, czeste_opady).
 
@@ -57,7 +55,6 @@ sugerowane_miejsce(innsbruck) :-
     pozytywne(chcesz_mieszkac, zagranica),
     pozytywne(chcesz_mieszkac, miasto),
     (atrakcyjne(spolecznie);
-    atrakcyjne(kultura);
     pozytywne(lubisz, sporty_zimowe)),
     (pozytywne(znasz, niemiecki);
     pozytywne(znasz, angielski)).
@@ -74,15 +71,15 @@ sugerowane_miejsce(madryt) :-
     pozytywne(chcesz_mieszkac, zagranica),
     (pozytywne(chcesz_mieszkac, metropolia);
         pozytywne(chcesz_mieszkac, miasto)),
-    atrakcyjne(spolecznie),
-    atrakcyjne(kultura),
+    atrakcyjne(humanistycznie),
     atrakcyjne(klimat),
     pozytywne(znasz, hiszpanski).
 
 sugerowane_miejsce(warszawa) :-
     (pozytywne(chcesz_mieszkac, metropolia); 
         pozytywne(chcesz_mieszkac, miasto)),
-    atrakcyjne(spolecznie).
+    atrakcyjne(spolecznie),
+    negatywne(chcesz_mieszkac, zagranica).
 
 %
 
@@ -97,6 +94,10 @@ nieistotne(opieka_medyczna) :-
 nieistotne(edukacja) :-
     negatywne(czy, masz_dzieci),
     pozytywne(czy, skonczyles_edukacje).
+
+atrakcyjne(humanistycznie) :-
+    (atrakcyjne(kultura);
+    atrakcyjne(spolecznie)).
 
 atrakcyjne(spolecznie) :-
     ((pozytywne(chcesz_mieszkac, metropolia);
