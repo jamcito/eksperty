@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Network2" numsamples="1000" discsamples="10000">
+	<nodes>
+		<cpt id="Suma_opadow">
+			<state id="Do_20" />
+			<state id="Do_50" />
+			<state id="Do_100" />
+			<probabilities>0.8 0.15 0.05</probabilities>
+		</cpt>
+		<cpt id="Nastawa_stoku">
+			<state id="State0" />
+			<state id="State1" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Pokrywa">
+			<state id="Brak" />
+			<state id="Do_50" />
+			<state id="Do_100" />
+			<state id="Do_150" />
+			<state id="Powyzej_150" />
+			<parents>Suma_opadow Nastawa_stoku</parents>
+			<probabilities>0.4 0.2 0.2 0.15 0.05 0.4 0.2 0.2 0.15 0.05 0.4 0.2 0.2 0.15 0.05 0.4 0.2 0.2 0.15 0.05 0.4 0.2 0.2 0.15 0.05 0.4 0.2 0.2 0.15 0.05</probabilities>
+		</cpt>
+		<cpt id="Pora_roku">
+			<state id="Wczesna_zima" />
+			<state id="Zima" />
+			<state id="Wiosna" />
+			<probabilities>0.15 0.55 0.3</probabilities>
+		</cpt>
+		<cpt id="Temperatura_w_nocy">
+			<state id="Dodatnia" />
+			<state id="Ujemna" />
+			<parents>Pora_roku</parents>
+			<probabilities>0.2 0.8 0.05 0.95 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Temperatura_w_dzien">
+			<state id="Dodatnia" />
+			<state id="Ujemna" />
+			<parents>Pora_roku</parents>
+			<probabilities>0.5 0.5 0.2 0.8 0.8 0.2</probabilities>
+		</cpt>
+		<cpt id="Tempo_wiazania">
+			<state id="Duze" />
+			<state id="Male" />
+			<parents>Temperatura_w_nocy Temperatura_w_dzien</parents>
+			<probabilities>0.7 0.3 0.8 0.2 0.9 0.1 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Rodzaj_opadu">
+			<state id="Deszcz" />
+			<state id="Snieg" />
+			<parents>Temperatura_w_nocy Temperatura_w_dzien</parents>
+			<probabilities>0.99 0.01 0.5 0.5 0.5 0.5 0.01 0.99</probabilities>
+		</cpt>
+		<cpt id="Naslonecznienie">
+			<state id="Duze" />
+			<state id="Male" />
+			<parents>Pora_roku</parents>
+			<probabilities>0.15 0.85 0.5 0.5 0.8 0.2</probabilities>
+		</cpt>
+		<cpt id="Warstwy_sniegu">
+			<state id="State0" />
+			<state id="State1" />
+			<parents>Rodzaj_opadu Naslonecznienie</parents>
+			<probabilities>0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Kierunek_Wiatru">
+			<state id="PN" />
+			<state id="PD" />
+			<state id="WSCH" />
+			<state id="ZACH" />
+			<probabilities>0.3 0.1 0.4 0.2</probabilities>
+		</cpt>
+		<cpt id="Sila_wiatru">
+			<state id="State0" />
+			<state id="State1" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Niesprzyjajacy_wiatr">
+			<state id="State0" />
+			<state id="State1" />
+			<parents>Kierunek_Wiatru Sila_wiatru</parents>
+			<probabilities>0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Nawiany_snieg">
+			<state id="Brak" />
+			<state id="W_zaglebieniach" />
+			<state id="W_wielu_miejscach" />
+			<parents>Niesprzyjajacy_wiatr Nastawa_stoku</parents>
+			<probabilities>0.2 0.5 0.3 0.2 0.5 0.3 0.2 0.5 0.3 0.2 0.5 0.3</probabilities>
+		</cpt>
+		<cpt id="Rownomiernosc_pokrywy">
+			<state id="State0" />
+			<state id="State1" />
+			<parents>Nawiany_snieg Pokrywa</parents>
+			<probabilities>0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Stabilna_pokrywa">
+			<state id="State0" />
+			<state id="State1" />
+			<parents>Tempo_wiazania Warstwy_sniegu Rownomiernosc_pokrywy</parents>
+			<probabilities>0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Stromizna">
+			<state id="Do_30" />
+			<state id="Do_40" />
+			<state id="Powyzej_40" />
+			<probabilities>0.5 0.5 0</probabilities>
+		</cpt>
+		<cpt id="Zagrozenie">
+			<state id="Stopien_0" />
+			<state id="Stopien_1" />
+			<state id="Stopien_2" />
+			<state id="Stopien_3" />
+			<state id="Stopien_4" />
+			<state id="Stopien_5" />
+			<parents>Pokrywa Stabilna_pokrywa Stromizna</parents>
+			<probabilities>1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0.5 0.3 0.15 0.05 0 0 0.5 0.3 0.15 0.05 0 0 0.5 0.3 0.15 0.05 0 0 0.5 0.3 0.15 0.05 0 0 0.5 0.3 0.15 0.05 0 0 0.5 0.3 0.15 0.05 0 0 0.4000000000000001 0.3 0.2000000000000001 0.1 0 0 0.4000000000000001 0.3 0.2000000000000001 0.1 0 0 0.4000000000000001 0.3 0.2000000000000001 0.1 0 0 0.4000000000000001 0.3 0.2000000000000001 0.1 0 0 0.4000000000000001 0.3 0.2000000000000001 0.1 0 0 0.4000000000000001 0.3 0.2000000000000001 0.1 0 0 0.2 0.3 0.4 0.1 0 0 0.2 0.3 0.4 0.1 0 0 0.2 0.3 0.4 0.1 0 0 0.2 0.3 0.4 0.1 0 0 0.2 0.3 0.4 0.1 0 0 0.2 0.3 0.4 0.1 0 0 0.1 0.2 0.4 0.3 0 0 0.1 0.2 0.4 0.3 0 0 0.1 0.2 0.4 0.3 0 0 0.1 0.2 0.4 0.3 0 0 0.1 0.2 0.4 0.3 0 0 0.1 0.2 0.4 0.3 0</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 2.0.4843.0" name="Network2" faultnameformat="nodestate">
+			<node id="Pokrywa">
+				<name>Grubosc pokrywy snieznej</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>502 309 692 448</position>
+			</node>
+			<node id="Zagrozenie">
+				<name>Stopien zagrozenia lawinowego</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>657 677 810 776</position>
+			</node>
+			<node id="Kierunek_Wiatru">
+				<name>Kierunek Wiatru</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>785 61 873 116</position>
+			</node>
+			<node id="Nawiany_snieg">
+				<name>Nawiany snieg</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>760 302 844 354</position>
+			</node>
+			<node id="Suma_opadow">
+				<name>Suma_ostatnich_opadow</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>195 36 289 111</position>
+			</node>
+			<node id="Pora_roku">
+				<name>Pora roku</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1155 29 1216 67</position>
+			</node>
+			<node id="Naslonecznienie">
+				<name>Naslonecznienie</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>857 148 946 203</position>
+			</node>
+			<node id="Temperatura_w_dzien">
+				<name>Temperatura_w_dzien</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1416 113 1534 186</position>
+			</node>
+			<node id="Temperatura_w_nocy">
+				<name>Temperatura_w_nocy</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1006 149 1122 221</position>
+			</node>
+			<node id="Warstwy_sniegu">
+				<name>Warstwy_sniegu</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>930 458 1023 516</position>
+			</node>
+			<node id="Rodzaj_opadu">
+				<name>Rodzaj_opadu</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1047 330 1127 380</position>
+			</node>
+			<node id="Tempo_wiazania">
+				<name>Tempo_wiazania</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>1357 304 1460 368</position>
+			</node>
+			<node id="Sila_wiatru">
+				<name>Sila_wiatru</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>631 59 699 101</position>
+			</node>
+			<node id="Stabilna_pokrywa">
+				<name>Stabilna pokrywa</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>880 629 975 688</position>
+			</node>
+			<node id="Stromizna">
+				<name>Stromizna</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>17 58 79 96</position>
+			</node>
+			<node id="Niesprzyjajacy_wiatr">
+				<name>Niesprzyjajacy_wiatr</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>725 159 837 229</position>
+			</node>
+			<node id="Nastawa_stoku">
+				<name>Nastawa stoku</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>429 35 547 142</position>
+			</node>
+			<node id="Rownomiernosc_pokrywy">
+				<name>Rownomiernosc pokrywy</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>790 459 890 521</position>
+			</node>
+		</genie>
+	</extensions>
+</smile>
