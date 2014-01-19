@@ -34,17 +34,35 @@
 			<parents>Pora_roku</parents>
 			<probabilities>0.5 0.5 0.2 0.8 0.8 0.2</probabilities>
 		</cpt>
+		<cpt id="Zachmurzenie">
+			<state id="Pelne" />
+			<state id="Czesciowe" />
+			<state id="Brak" />
+			<probabilities>0.5 0.3 0.2</probabilities>
+		</cpt>
 		<cpt id="Naslonecznienie">
 			<state id="Duze" />
 			<state id="Male" />
-			<parents>Pora_roku</parents>
-			<probabilities>0.15 0.85 0.5 0.5 0.8 0.2</probabilities>
+			<parents>Pora_roku Zachmurzenie</parents>
+			<probabilities>0.05 0.95 0.1 0.9 0.15 0.85 0.3 0.7 0.5 0.5 0.7 0.3 0.6 0.4 0.7 0.3 0.95 0.05</probabilities>
+		</cpt>
+		<cpt id="Historia_temperatur">
+			<state id="Dodatnie" />
+			<state id="Ujemne" />
+			<state id="Zmienne" />
+			<probabilities>0.2 0.5 0.3</probabilities>
+		</cpt>
+		<cpt id="Korzystne_temperatury">
+			<state id="Korzystne" />
+			<state id="Niekorzystne" />
+			<parents>Temperatura_w_dzien Temperatura_w_nocy Historia_temperatur</parents>
+			<probabilities>0.2 0.8 0.4 0.6 0.4 0.6 0.7 0.3 0.8 0.2 0.9 0.1 0.7 0.3 0.9 0.1 0.95 0.05 0.8 0.2 0.3 0.7 0.6 0.4</probabilities>
 		</cpt>
 		<cpt id="Tempo_wiazania">
 			<state id="Duze" />
 			<state id="Male" />
-			<parents>Temperatura_w_nocy Temperatura_w_dzien Naslonecznienie</parents>
-			<probabilities>0.3 0.7 0.4 0.6 0.5 0.5 0.5 0.5 0.8 0.2 0.6 0.4 0.7 0.3 0.1 0.9</probabilities>
+			<parents>Naslonecznienie Korzystne_temperatury</parents>
+			<probabilities>0.8 0.2 0.5 0.5 0.6 0.4 0.3 0.7</probabilities>
 		</cpt>
 		<cpt id="Rodzaj_opadu">
 			<state id="Deszcz" />
@@ -114,112 +132,133 @@
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>660 260 780 319</position>
+				<position>818 354 938 413</position>
 			</node>
 			<node id="Zagrozenie">
 				<name>Stopien zagrozenia lawinowego</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>640 560 780 620</position>
+				<position>807 652 947 712</position>
 			</node>
 			<node id="Kierunek_Wiatru">
 				<name>Kierunek Wiatru</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>1020 60 1128 120</position>
+				<position>1178 62 1286 122</position>
 			</node>
 			<node id="Nawiany_snieg">
 				<name>Nawiany snieg</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>920 260 1040 320</position>
+				<position>1078 354 1198 414</position>
 			</node>
 			<node id="Suma_opadow">
 				<name>Suma_ostatnich_opadow</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>660 60 780 120</position>
+				<position>818 62 938 122</position>
 			</node>
 			<node id="Pora_roku">
 				<name>Pora roku</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>500 60 620 120</position>
+				<position>658 62 778 122</position>
 			</node>
 			<node id="Naslonecznienie">
 				<name>Naslonecznienie</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>500 160 620 220</position>
+				<position>658 162 778 222</position>
 			</node>
 			<node id="Temperatura_w_dzien">
 				<name>Temperatura_w_dzien</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>0 160 118 220</position>
+				<position>158 162 276 222</position>
 			</node>
 			<node id="Temperatura_w_nocy">
 				<name>Temperatura_w_nocy</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>280 160 396 220</position>
+				<position>438 162 554 222</position>
 			</node>
 			<node id="Warstwy_sniegu">
 				<name>Warstwy sniegu</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>500 360 620 420</position>
+				<position>658 454 778 514</position>
 			</node>
 			<node id="Rodzaj_opadu">
 				<name>Rodzaj_opadu</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>0 260 120 320</position>
+				<position>158 354 278 414</position>
 			</node>
 			<node id="Tempo_wiazania">
 				<name>Tempo_wiazania</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>280 260 400 320</position>
+				<position>434 359 554 419</position>
 			</node>
 			<node id="Sila_wiatru">
 				<name>Sila_wiatru</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>820 60 928 120</position>
+				<position>978 62 1086 122</position>
 			</node>
 			<node id="Stabilnosc_pokrywy">
 				<name>Stabilnosc pokrywy</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>500 460 620 520</position>
+				<position>658 554 778 614</position>
 			</node>
 			<node id="Niesprzyjajacy_wiatr">
 				<name>Niesprzyjajacy_wiatr</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>920 160 1040 220</position>
+				<position>1078 162 1198 222</position>
 			</node>
 			<node id="Rownomiernosc_pokrywy">
 				<name>Rownomiernosc pokrywy</name>
 				<interior color="e5f6f7" />
 				<outline color="000080" />
 				<font color="000000" name="Arial" size="8" />
-				<position>920 360 1040 420</position>
+				<position>1078 454 1198 514</position>
+			</node>
+			<node id="Zachmurzenie">
+				<name>Zachmurzenie</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>438 63 554 122</position>
+			</node>
+			<node id="Historia_temperatur">
+				<name>Historia temperatur</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>167 64 268 127</position>
+			</node>
+			<node id="Korzystne_temperatury">
+				<name>Korzystne temperatury</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000000" name="Arial" size="8" />
+				<position>448 271 545 322</position>
 			</node>
 		</genie>
 	</extensions>
